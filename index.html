@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Phintar Energi Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="sidebar">
+            <h1>Level: <span id="current-level">1</span></h1>
+            <div class="players">
+                <div class="player" id="player1"></div>
+                <div class="player" id="player2"></div>
+                <div class="player" id="player3"></div>
+                <div class="player" id="player4"></div>
+            </div>
+            <button id="dice">🎲</button>
+        </div>
+
+        <div id="board" class="board-level1"></div>
+
+        <div class="modal" id="question-modal">
+            <div class="modal-content">
+                <h2 id="modal-title"></h2>
+                <p id="modal-text"></p>
+                <div id="options-container"></div>
+                <button id="next-btn">Lanjut</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="levels.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
