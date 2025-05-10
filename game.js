@@ -1,33 +1,38 @@
-const players = [0, 0, 0, 0]; // Track positions of 4 players
+// Game state
 let currentLevel = 1;
 let currentPlayer = 0;
 let scores = [0, 0, 0, 0];
-const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+
+// DOM elements
+const board = document.getElementById('board');
+const modal = document.getElementById('question-modal');
+const nextBtn = document.getElementById('next-btn');
 
 // Initialize game
 function init() {
     createBoard();
     positionPlayers();
     document.getElementById('dice').addEventListener('click', handleTurn);
-    document.getElementById('next-btn').addEventListener('click', closeModal);
+    nextBtn.addEventListener('click', closeModal);
 }
 
 // Create game board
 function createBoard() {
-    const board = document.getElementById('board');
     board.innerHTML = '';
     board.className = `board board-level${currentLevel}`;
     
     levels[`level${currentLevel}`].forEach((tile, index) => {
         const tileElement = document.createElement('div');
         tileElement.className = 'tile';
-        tileElement.textContent = tile.icon || ' ';
+        tileElement.textContent = tile.icon || '';
         tileElement.dataset.index = index;
+        tileElement.style.backgroundImage = `url(assets/energy-icons/${tile.icon}.png)`;
         board.appendChild(tileElement);
     });
 }
 
-// Position players at start
+// Position players
 function positionPlayers() {
     document.querySelectorAll('.player').forEach((player, index) => {
         const startTile = document.querySelector('.tile:first-child');
@@ -38,40 +43,39 @@ function positionPlayers() {
     });
 }
 
-// Handle player turn
+// Game mechanics
 function handleTurn() {
-    if(currentPlayer >= 4) currentPlayer = 0; // Cycle through players
-    rollDice(currentPlayer);
+    const currentPlayerIndex = currentPlayer % 4;
+    rollDice(currentPlayerIndex);
+    currentPlayer++;
 }
 
-// Dice roll mechanics
 function rollDice(playerIndex) {
     const steps = Math.floor(Math.random() * 3) + 1;
     movePlayer(playerIndex, steps);
 }
 
-// Player movement system
 function movePlayer(playerIndex, steps) {
     const player = document.getElementById(`player${playerIndex + 1}`);
     const tiles = document.querySelectorAll('.tile');
+    let playerPosition = players[playerIndex];
     
-    players[playerIndex] += steps;
-    if(players[playerIndex] >= tiles.length) players[playerIndex] = tiles.length - 1;
+    playerPosition += steps;
+    if(playerPosition >= tiles.length) playerPosition = tiles.length - 1;
+    players[playerIndex] = playerPosition;
     
-    const targetTile = tiles[players[playerIndex]];
+    // Animation
     player.style.transition = 'transform 0.5s';
+    const targetTile = tiles[playerPosition];
     player.style.transform = `translate(
-        ${targetTile.offsetLeft}px,
-        ${targetTile.offsetTop}px
+        ${targetTile.offsetLeft + 20}px,
+        ${targetTile.offsetTop + 20}px
     )`;
     
-    setTimeout(() => {
-        checkTile(players[playerIndex], playerIndex);
-        currentPlayer++;
-    }, 500);
+    setTimeout(() => checkTile(playerPosition, currentPlayer % 4), 500);
 }
 
-// Tile interaction system
+// Interaction handlers
 function checkTile(tileIndex, playerIndex) {
     const levelData = levels[`level${currentLevel}`][tileIndex];
     
@@ -94,34 +98,51 @@ function checkTile(tileIndex, playerIndex) {
     }
 }
 
-// Quiz handler
+// Quiz system
 function showQuiz(data, playerIndex) {
-    const modal = document.getElementById('question-modal');
-    document.getElementById('modal-title').textContent = 'Quiz Time!';
-    document.getElementById('modal-text').textContent = data.question;
-    
+    const modalTitle = document.getElementById('modal-title');
+    const modalText = document.getElementById('modal-text');
     const optionsContainer = document.getElementById('options-container');
-    optionsContainer.innerHTML = data.options.map(option => 
-        `<button class="quiz-option" onclick="checkAnswer(${option.correct}, ${playerIndex})">
-            ${option.text}
-        </button>`
-    ).join('');
+    
+    modalTitle.textContent = 'Quiz Time!';
+    modalText.textContent = data.question;
+    
+    if(data.options) {
+        optionsContainer.innerHTML = data.options.map(option => 
+            `<button class="quiz-option" onclick="checkAnswer(${option.correct}, ${playerIndex})">
+                ${option.text}
+            </button>`
+        ).join('');
+    }
     
     modal.style.display = 'block';
 }
 
-// Challenge handler
+function checkAnswer(isCorrect, playerIndex) {
+    if(isCorrect) {
+        scores[playerIndex] += 10;
+        updateLeaderboard(playerIndex);
+        closeModal();
+    } else {
+        alert('Jawaban salah! Coba lagi!');
+        players[playerIndex] -= 1; // Move back on wrong answer
+    }
+}
+
+// Challenge system
 function showChallenge(data, playerIndex) {
-    const modal = document.getElementById('question-modal');
-    document.getElementById('modal-title').textContent = 'Tantangan!';
-    document.getElementById('modal-text').textContent = data.task;
+    const modalTitle = document.getElementById('modal-title');
+    const modalText = document.getElementById('modal-text');
+    
+    modalTitle.textContent = 'Tantangan!';
+    modalText.textContent = data.task;
     
     // Create input field for text-based challenges
     const input = document.createElement('input');
     input.type = 'text';
     input.id = 'challenge-answer';
     
-    // Create drag-and-drop for pairing challenges
+    // Drag-and-drop for pairing challenges
     if(data.pairs) {
         const container = document.createElement('div');
         data.pairs.forEach(pair => {
@@ -136,42 +157,14 @@ function showChallenge(data, playerIndex) {
     } else {
         document.getElementById('options-container').appendChild(input);
     }
-    
-    document.getElementById('next-btn').onclick = () => validateChallenge(data, playerIndex);
-    modal.style.display = 'block';
 }
 
-// Reward handler
-function showReward(data, playerIndex) {
-    scores[playerIndex] += data.points || 10;
-    updateLeaderboard(playerIndex);
-    alert(data.content);
-}
-
-// Info handler
-function showInfo(data) {
-    alert(`INFO: ${data.content}\nContoh: ${data.example}`);
-}
-
-// Answer validation
-function checkAnswer(isCorrect, playerIndex) {
-    if(isCorrect) {
-        scores[playerIndex] += 10;
-        updateLeaderboard(playerIndex);
-        closeModal();
-    } else {
-        alert('Jawaban salah! Coba lagi!');
-        players[playerIndex] -= 1; // Move back on wrong answer
-    }
-}
-
-// Challenge validation
 function validateChallenge(data, playerIndex) {
-    const answer = document.getElementById('challenge-answer')?.value
+    const userAnswer = document.getElementById('challenge-answer')?.value
         || Array.from(document.querySelectorAll('.pair input'))
             .map(input => input.value);
-            
-    if(answer.toString() === data.answer.toString()) {
+    
+    if(userAnswer.toString() === data.answer.toString()) {
         scores[playerIndex] += 20;
         updateLeaderboard(playerIndex);
         closeModal();
@@ -192,34 +185,32 @@ function updateLeaderboard(playerIndex) {
         color: playerColor
     });
     
-    leaderboard.sort((a, b) => b.score - a.score);
-    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-    showLeaderboard();
-}
-
-// Level completion
-function handleLevelCompletion(playerIndex) {
-    if(currentLevel < 3) {
-        currentLevel++;
-        players = [0, 0, 0, 0]; // Reset positions for new level
-        createBoard();
-        positionPlayers();
-    } else {
-        alert('Selamat! Kamu menyelesaikan semua level!');
-    }
-}
-
-// Modal control
-function closeModal() {
-    document.getElementById('question-modal').style.display = 'none';
-}
-
-// Leaderboard display
-function showLeaderboard() {
+    // Update visual leaderboard
     const list = document.getElementById('leaderboard-list');
     list.innerHTML = leaderboard.map(entry => 
         `<li style="color: ${entry.color}">${entry.name}: ${entry.score} poin</li>`
     ).join('');
+    
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+}
+
+// Modal control
+function closeModal() {
+    modal.style.display = 'none';
+    document.getElementById('options-container').innerHTML = '';
+}
+
+// Level progression
+function handleLevelCompletion(playerIndex) {
+    if(currentLevel < 3) {
+        currentLevel++;
+        players = [0, 0, 0, 0]; // Reset player positions
+        createBoard();
+        positionPlayers();
+        closeModal();
+    } else {
+        alert('Selamat! Kamu menyelesaikan semua level!');
+    }
 }
 
 init();
