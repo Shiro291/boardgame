@@ -1,6 +1,5 @@
-const level1 = {
-    title: "Petualangan Energi Dasar",
-    tiles: [
+const levels = {
+    level1: [
         // 1. Start Tile
         {
             type: 'start',
@@ -130,12 +129,8 @@ const level1 = {
             content: 'Level 1 Selesai! 🎯 Siap untuk Level 2?',
             icon: '🏆'
         }
-    ]
-};
-
-const level2 = {
-    title: "Transformasi Energi",
-    tiles: [
+    ],
+    level2: [
         // 1. Start Tile
         {
             type: 'start',
@@ -271,12 +266,8 @@ const level2 = {
             content: 'Level 2 Tuntas! 🚀 Menuju Energi Alternatif!',
             icon: '🏆'
         }
-    ]
-};
-
-const level3 = {
-    title: "Energi Masa Depan",
-    tiles: [
+    ],
+    level3: [
         // 1. Start Tile
         {
             type: 'start',
@@ -410,5 +401,3 @@ const level3 = {
         }
     ]
 };
-
-merge those 3
