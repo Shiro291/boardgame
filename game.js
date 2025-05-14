@@ -110,7 +110,7 @@ function validateChallenge(playerIndex) {
 
 
 async function rollDice() {
-    const steps = Math.floor(Math.random() * 6) + 1;
+    const steps = Math.floor(Math.random() * 3) + 1;
     movePlayer(currentPlayer, steps);
 
     const maxTileIndex = levels[`level${currentLevel}`].length - 1;
