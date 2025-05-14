@@ -6,7 +6,6 @@ const levels = {
             content: 'Selamat datang di dunia energi! 🌍⚡',
             icon: '🏁'
         },
-        
         // 2. Basic Definition
         {
             type: 'info',
@@ -14,7 +13,6 @@ const levels = {
             icon: '⚡',
             example: 'Contoh: Lampu menyala karena energi listrik.'
         },
-        
         // 3. Quiz: Energy Sources
         {
             type: 'quiz',
@@ -26,7 +24,6 @@ const levels = {
             ],
             icon: '☀️'
         },
-        
         // 4. Solar Energy
         {
             type: 'info',
@@ -34,29 +31,29 @@ const levels = {
             icon: '☀️',
             example: 'Energi matahari digunakan untuk fotosintesis tumbuhan.'
         },
-        
-        // 5. Home Energy Challenge
+        // 5. Home Energy Challenge (Converted to Quiz)
         {
-            type: 'challenge',
-            task: 'Sebutkan 3 sumber energi yang ada di rumahmu!',
-            answer: ['Listrik', 'Baterai', 'Kompor Gas'],
+            type: 'quiz',
+            question: 'Sebutkan 3 sumber energi yang ada di rumahmu!',
+            options: [
+                { text: 'Listrik, Baterai, Kompor Gas', correct: true },
+                { text: 'Solar, Wind, Hydro', correct: false },
+                { text: 'Coal, Oil, Gasoline', correct: false }
+            ],
             icon: '🏠'
         },
-        
         // 6. Reward 1
         {
             type: 'reward',
             content: '+10 Poin! 🌟 Sumber energi di rumah: Listrik, Baterai, Kompor.',
             icon: '⭐'
         },
-        
         // 7. Forms of Energy
         {
             type: 'info',
             content: 'Bentuk energi: Cahaya 💡, Panas 🔥, Bunyi 🔊, Gerak 🚴♀️, Listrik ⚡',
             icon: '🌈'
         },
-        
         // 8. Quiz: Heat Energy
         {
             type: 'quiz',
@@ -68,11 +65,10 @@ const levels = {
             ],
             icon: '🔥'
         },
-        
-        // 9. Energy Matching Challenge
+        // 9. Energy Matching Challenge (Converted to Info)
         {
-            type: 'challenge',
-            task: 'Pasangkan bentuk energi dengan contoh:',
+            type: 'info',
+            content: 'Pasangkan bentuk energi dengan contoh:',
             pairs: [
                 { form: 'Cahaya', example: 'Lampu' },
                 { form: 'Gerak', example: 'Kipas Angin' },
@@ -80,14 +76,12 @@ const levels = {
             ],
             icon: '🔗'
         },
-        
         // 10. Reward 2
         {
             type: 'reward',
             content: '+15 Poin! 🎉 Kamu menguasai bentuk energi!',
             icon: '🎊'
         },
-        
         // 11. Electrical Energy
         {
             type: 'info',
@@ -95,7 +89,6 @@ const levels = {
             icon: '💡',
             example: 'Contoh: Lampu (listrik → cahaya)'
         },
-        
         // 12. Quiz: Electrical Devices
         {
             type: 'quiz',
@@ -107,22 +100,23 @@ const levels = {
             ],
             icon: '🔌'
         },
-        
-        // 13. Drawing Challenge
+        // 13. Drawing Challenge (Converted to Quiz)
         {
-            type: 'challenge',
-            task: 'Gambar alat yang menghasilkan cahaya!',
-            answer: 'Lampu, Senter, Lilin',
+            type: 'quiz',
+            question: 'Gambar alat yang menghasilkan cahaya! Sebutkan nama alat tersebut.',
+            options: [
+                { text: 'Lampu, Senter, Lilin', correct: true },
+                { text: 'Kipas Angin, Radio, Kincir Angin', correct: false },
+                { text: 'Kompor, Panel Surya, Turbin Air', correct: false }
+            ],
             icon: '🎨'
         },
-        
         // 14. Final Reward
         {
             type: 'reward',
             content: 'Medali Emas! 🥇 Kamu ahli energi dasar!',
             icon: '🏅'
         },
-        
         // 15. Finish Tile
         {
             type: 'finish',
@@ -137,7 +131,6 @@ const levels = {
             content: 'Siap belajar perubahan energi? 🔋→💡',
             icon: '🏁'
         },
-        
         // 2. Basic Transformation
         {
             type: 'info',
@@ -145,7 +138,6 @@ const levels = {
             icon: '💡',
             example: 'Setrika: Listrik → Panas'
         },
-        
         // 3. Quiz: Light Bulb
         {
             type: 'quiz',
@@ -157,7 +149,6 @@ const levels = {
             ],
             icon: '⚡'
         },
-        
         // 4. Sound Energy
         {
             type: 'info',
@@ -165,26 +156,23 @@ const levels = {
             icon: '🔊',
             example: 'Gitar: Gerak → Bunyi'
         },
-        
-        // 5. Transformation Challenge
+        // 5. Transformation Challenge (Converted to Quiz)
         {
-            type: 'challenge',
-            task: 'Pasangkan alat dengan perubahan energinya:',
-            pairs: [
-                { tool: 'Kipas Angin', transformation: 'Listrik → Gerak' },
-                { tool: 'Kompor Gas', transformation: 'Kimia → Panas' },
-                { tool: 'Senter', transformation: 'Kimia → Cahaya' }
+            type: 'quiz',
+            question: 'Pasangkan alat dengan perubahan energinya:',
+            options: [
+                { text: 'Kipas Angin: Listrik → Gerak', correct: true },
+                { text: 'Kompor Gas: Kimia → Panas', correct: true },
+                { text: 'Senter: Kimia → Cahaya', correct: true }
             ],
             icon: '🔌'
         },
-        
         // 6. Reward 1
         {
             type: 'reward',
             content: '+15 Poin! 🌟 Ahli transformasi energi!',
             icon: '🏅'
         },
-        
         // 7. Heat Energy
         {
             type: 'info',
@@ -192,7 +180,6 @@ const levels = {
             icon: '🔥',
             example: 'Mobil: Bensin → Gerak'
         },
-        
         // 8. Quiz: Movement
         {
             type: 'quiz',
@@ -204,7 +191,6 @@ const levels = {
             ],
             icon: '🚗'
         },
-        
         // 9. Solar Transformation
         {
             type: 'info',
@@ -212,22 +198,23 @@ const levels = {
             icon: '☀️',
             example: 'Kalkulator surya bekerja dengan prinsip ini'
         },
-        
-        // 10. Drawing Challenge
+        // 10. Drawing Challenge (Converted to Quiz)
         {
-            type: 'challenge',
-            task: 'Gambar 1 contoh perubahan energi di rumah!',
-            answer: 'Setrika, Blender, Lampu',
+            type: 'quiz',
+            question: 'Gambar 1 contoh perubahan energi di rumah! Sebutkan nama alat tersebut.',
+            options: [
+                { text: 'Setrika, Blender, Lampu', correct: true },
+                { text: 'Kipas Angin, Radio, Kincir Angin', correct: false },
+                { text: 'Kompor, Panel Surya, Turbin Air', correct: false }
+            ],
             icon: '✏️'
         },
-        
         // 11. Reward 2
         {
             type: 'reward',
             content: 'Medali Perak! 🥈 Kamu menguasai transformasi dasar!',
             icon: '🎖️'
         },
-        
         // 12. Complex Transformation
         {
             type: 'info',
@@ -235,7 +222,6 @@ const levels = {
             icon: '💧',
             example: 'Turbin air mengubah energi air menjadi listrik'
         },
-        
         // 13. Quiz: Multiple Steps
         {
             type: 'quiz',
@@ -247,19 +233,17 @@ const levels = {
             ],
             icon: '🏭'
         },
-        
-        // 14. Final Challenge
+        // 14. Final Challenge (Converted to Quiz)
         {
-            type: 'challenge',
-            task: 'Urutkan transformasi energi di blender:',
-            steps: [
-                'Listrik', 
-                'Gerak (motor)', 
-                'Menghancurkan buah'
+            type: 'quiz',
+            question: 'Urutkan transformasi energi di blender:',
+            options: [
+                { text: 'Listrik → Gerak (motor) → Menghancurkan buah', correct: true },
+                { text: 'Gerak → Listrik → Cahaya', correct: false },
+                { text: 'Panas → Kimia → Listrik', correct: false }
             ],
             icon: '料理'
         },
-        
         // 15. Finish Tile
         {
             type: 'finish',
@@ -274,7 +258,6 @@ const levels = {
             content: 'Selamat datang di era energi hijau! 🌱⚡',
             icon: '🏁'
         },
-        
         // 2. Renewable Energy Basics
         {
             type: 'info',
@@ -282,7 +265,6 @@ const levels = {
             icon: '🔋',
             example: 'Contoh: Matahari, angin, air'
         },
-        
         // 3. Quiz: Renewable vs Non-renewable
         {
             type: 'quiz',
@@ -294,7 +276,6 @@ const levels = {
             ],
             icon: '☀️'
         },
-        
         // 4. Solar Energy Application
         {
             type: 'info',
@@ -302,22 +283,23 @@ const levels = {
             icon: '💡',
             example: 'Digunakan di rumah, lampu jalan, dan satelit'
         },
-        
-        // 5. Wind Energy Challenge
+        // 5. Wind Energy Challenge (Converted to Quiz)
         {
-            type: 'challenge',
-            task: 'Jelaskan cara kerja kincir angin!',
-            answer: 'Angin → Gerak kincir → Listrik',
+            type: 'quiz',
+            question: 'Jelaskan cara kerja kincir angin!',
+            options: [
+                { text: 'Angin → Gerak kincir → Listrik', correct: true },
+                { text: 'Air → Gerak → Listrik', correct: false },
+                { text: 'Panas → Gerak → Listrik', correct: false }
+            ],
             icon: '🌬️'
         },
-        
         // 6. Reward 1
         {
             type: 'reward',
             content: '+20 Poin! 🌍 Kamu paham energi angin!',
             icon: '🌍'
         },
-        
         // 7. Hydroelectric Power
         {
             type: 'info',
@@ -325,7 +307,6 @@ const levels = {
             icon: '💧',
             example: 'Air terjun → Turbin → Listrik'
         },
-        
         // 8. Quiz: Energy Efficiency
         {
             type: 'quiz',
@@ -337,7 +318,6 @@ const levels = {
             ],
             icon: '🌱'
         },
-        
         // 9. Bioenergy Example
         {
             type: 'info',
@@ -345,22 +325,23 @@ const levels = {
             icon: '🗑️',
             example: 'Digunakan untuk memasak dan penerangan'
         },
-        
-        // 10. Design Challenge
+        // 10. Design Challenge (Converted to Quiz)
         {
-            type: 'challenge',
-            task: 'Rancang rumah hemat energi dengan 3 sumber alternatif!',
-            answer: 'Panel surya, kincir angin, biogas',
+            type: 'quiz',
+            question: 'Rancang rumah hemat energi dengan 3 sumber alternatif! Sebutkan sumber-sumber tersebut.',
+            options: [
+                { text: 'Panel surya, kincir angin, biogas', correct: true },
+                { text: 'Solar, Wind, Hydro', correct: false },
+                { text: 'Coal, Oil, Gasoline', correct: false }
+            ],
             icon: '🏠'
         },
-        
         // 11. Reward 2
         {
             type: 'reward',
             content: 'Medali Platinum! 🏅 Ahli energi alternatif!',
             icon: '💎'
         },
-        
         // 12. Geothermal Energy
         {
             type: 'info',
@@ -368,7 +349,6 @@ const levels = {
             icon: '🌋',
             example: 'PLTP di daerah gunung berapi'
         },
-        
         // 13. Quiz: Problem Solving
         {
             type: 'quiz',
@@ -380,19 +360,17 @@ const levels = {
             ],
             icon: '💡'
         },
-        
-        // 14. Final Project
+        // 14. Final Project (Converted to Quiz)
         {
-            type: 'challenge',
-            task: 'Buat poster "Tips Hemat Energi di Rumah"',
-            steps: [
-                'Matikan lampu jika tidak dipakai',
-                'Gunakan alat berlabel hemat energi',
-                'Manfaatkan cahaya matahari siang hari'
+            type: 'quiz',
+            question: 'Buat poster "Tips Hemat Energi di Rumah". Berikut adalah beberapa tips yang dapat kamu gunakan:',
+            options: [
+                { text: 'Matikan lampu jika tidak dipakai, Gunakan alat berlabel hemat energi, Manfaatkan cahaya matahari siang hari', correct: true },
+                { text: 'Gunakan AC sepanjang waktu, Pakai lampu LED, Matikan komputer saat tidur', correct: false },
+                { text: 'Gunakan mesin cuci setiap hari, Pakai dispenser air panas, Gunakan lampu neon', correct: false }
             ],
             icon: '✍️'
         },
-        
         // 15. Finish Tile
         {
             type: 'finish',
